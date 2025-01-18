@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Spin from "../Spin"
 import axios from 'axios';
-import { UseMyCart } from '../context';
-
+import { useCart } from '../Context';
 function PlainPlanCard({ plans }) {
 
     const [orgName, setOrgName] = useState('');
@@ -13,14 +12,13 @@ function PlainPlanCard({ plans }) {
     const [amount, setamount] = useState('');
     const [planQuantity, setplanQuantity] = useState('');
     const [loading, setLoading] = useState(false);
-    const { cart, setCart } = UseMyCart();
 
-    function addToCart() {
-        setCart([...cart, plans]);
-    }
-    const addCart = (id) => {
-        addToCart(id);
-    }
+
+    const cart = useCart();
+    console.log("cart is here ", cart);
+
+
+
     const openPopUp = (id, name, price) => {
         setPopUp(true);
         setPlanId(id);
@@ -107,41 +105,48 @@ function PlainPlanCard({ plans }) {
                                     </button>
                                 </div>
                                 <div className='w-full flex justify-between hover:scale-105 transition duration-200'>
-                                    <button onClick={() => addCart(plan._id)} className='bg-customBlue p-2 rounded-lg w-full text-white font-semoibold'>
-                                        Add to Cart
-                                    </button>
-                                </div>
-
+                                    <button onClick={() => cart.setItems([...cart.items, {
+                                        name: plan.name,
+                                        price: plan.price,
+                                        id: plan._id,
+                                        description: plan.description,
+                                        maxUsers: plan.maxUsers,
+                                        feature: plan.features,
+                                    }])} className='bg-customBlue p-2 rounded-lg w-full text-white font-semoibold'>
+                                    Add to Cart
+                                </button>
                             </div>
+
+                        </div>
                         </div>
 
 
                     ))}
-                </div>
+            </div>
 
-                {
-                    popUp && (
-                        <div>
-                            <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center'>
-                                <div className='w-[500px] h-[200px] bg-customBlue rounded-lg shadow-lg p-4'>
-                                    <h1 className='text-2xl text-white font-semibold text-center'>Enter Organization Name</h1>
-                                    <input type='text' className='w-full font-semibold text-black h-10 border-2 border-gray-300 rounded-lg p-2 mt-6' placeholder='Organization Name' value={orgName} onChange={(e) => setOrgName(e.target.value)} />
-                                    <div className='w-full flex justify-between mt-6'>
-                                        <button onClick={closePopUp} className='bg-red-400 p-2 rounded-lg w-20 text-white font-semibold'>Cancel</button>
-                                        <button onClick={checkout} className='bg-green-400 p-2 rounded-lg w-20 text-white font-semibold'>
-                                            {
-                                                loading ? <Spin /> : "Submit"
-                                            }
-                                        </button>
-                                    </div>
+            {
+                popUp && (
+                    <div>
+                        <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center'>
+                            <div className='w-[500px] h-[200px] bg-customBlue rounded-lg shadow-lg p-4'>
+                                <h1 className='text-2xl text-white font-semibold text-center'>Enter Organization Name</h1>
+                                <input type='text' className='w-full font-semibold text-black h-10 border-2 border-gray-300 rounded-lg p-2 mt-6' placeholder='Organization Name' value={orgName} onChange={(e) => setOrgName(e.target.value)} />
+                                <div className='w-full flex justify-between mt-6'>
+                                    <button onClick={closePopUp} className='bg-red-400 p-2 rounded-lg w-20 text-white font-semibold'>Cancel</button>
+                                    <button onClick={checkout} className='bg-green-400 p-2 rounded-lg w-20 text-white font-semibold'>
+                                        {
+                                            loading ? <Spin /> : "Submit"
+                                        }
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    )
+                    </div>
+                )
 
-                }
+            }
 
-            </div>
+        </div >
 
 
         </>

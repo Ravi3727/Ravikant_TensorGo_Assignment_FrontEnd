@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { UseMyCart } from '../context';
-import cartIcon from '../assets/cartIcon.png'
+import { useCart } from '../Context';
+import { IoCartOutline } from "react-icons/io5";
 function Navbar() {
     const navigate = useNavigate();
     const storedUser = localStorage.getItem("ID");
     const user = storedUser ? storedUser : null;
-    const { cart } = UseMyCart();
+    const cart = useCart();
 
     console.log("cart", cart);
     const logoutUser = async () => {
@@ -16,6 +16,8 @@ function Navbar() {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("isSuperAdmin");
             localStorage.removeItem("isAdmin");
+            localStorage.removeItem("email");
+            localStorage.removeItem("username");
             const Token1 = localStorage.getItem("accessToken");
             const url = `http://localhost:3000/ravi/v1/users/logout`;
             const response = await axios.post(url, Token1, { withCredentials: true });
@@ -37,16 +39,16 @@ function Navbar() {
     return (
         <nav className="flex bg-customBlue rounded-t-lg justify-between items-center h-16  text-white relative shadow-sm font-mono" role="navigation">
             <a href="/" className="pl-8 text-2xl font-bold text-orange-500">TensorGo</a>
-    
 
-            <div className='flex gap-4 '>
-                <a href="/dashboard">
-                    <div className='bg-orange-500 p-2 mt-1 w-22 h-10 border-1 rounded-lg'>
+
+            <div className='flex w-[32%] justify-between items-center'>
+                <a href="/dashboard" >
+                    <div className='bg-orange-500 hover:bg-orange-600 p-2  w-22 h-10 border-1 rounded-lg'>
                         Dashboard
                     </div>
                 </a>
-                <div className="pr-8 flex gap-2 justify-between items-center">
-                    {(user === null) && <button className='bg-orange-500 p-2 border-1 rounded-lg'>
+                <div className="flex justify-between items-center">
+                    {(user === null) && <button className='bg-orange-500 hover:bg-orange-600 p-2 border-1 rounded-lg'>
                         <a href="/signin" className="p-4 font-semibold">Login</a>
                     </button>}
                     {user !== null && (
@@ -59,9 +61,24 @@ function Navbar() {
                     )}
                 </div>
 
-                <div className='relative w-10 h-12 p-1 mr-10 upper'>
-                    <h1 className='absolute top-3 left-5 text-lg text-red-600 font-bold z-50'>{cart?.length || 0}</h1>
-                    <img src={cartIcon} alt="cart" className='w-full h-full' />
+                <a href="/history">
+                    <button
+                        className="bg-orange-500 p-2 border-1 rounded-lg"
+                    >
+                        History
+                    </button>
+                </a>
+
+
+                <div>
+                    <a href="/cart">
+                        <div className='relative  p-1 mr-10 upper hover:scale-105 transition duration-200'>
+                            <h1 className='absolute -top-1 left-7 text-xl h-6 w-6 bg-red-500  rounded-full text-white font-extrabold z-50 '>{cart?.items?.length || 0}</h1>
+                            <div className='text-5xl'>
+                                <IoCartOutline />
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
             </div>

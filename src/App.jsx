@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import AllPlans from './components/AllPlans';
 import CreatePlans from './components/CreatePlans';
 import UserDashboard from './components/Dashboards/UserDashboard';
+import DisplayCart from './components/displayCart';
+import History from './components/Dashboards/History';
 
 
 
@@ -24,6 +26,8 @@ function App() {
             <Route path="/signin" element={<Login />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/cart" element={<DisplayCart />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </Router>
       </AppContext.Provider>

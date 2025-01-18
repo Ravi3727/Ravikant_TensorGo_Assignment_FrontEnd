@@ -3,8 +3,8 @@ import axios from "axios";
 import PlanCard from './planDisplay';
 import OrganizationDisplay from './orgDisplay';
 import NormalOrganizationDisplay from './NormalUserOrgDisplay';
+import UnpaidUser from './UnpaidUser';
 function UserDashboard() {
-    const username = "Ravi";
     const [tab, setTab] = useState('organizations');
     const [organization, setOrganization] = useState();
     const [plans, setPlans] = useState();
@@ -14,7 +14,7 @@ function UserDashboard() {
     const [OrgByUserID,getOrgByUserID] = useState();
     const isSuperAdmin = localStorage.getItem('isSuperAdmin') === 'true';
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
-
+    const username = localStorage.getItem('username');
     const getOrganization = async () => {
         try {
             const userId = localStorage.getItem('ID');
@@ -53,7 +53,8 @@ function UserDashboard() {
         if (isSuperAdmin) {
             getOrganization();
             getPlans();
-        }else {
+        }
+        if(isAdmin) {
             getOrgsWithUserId(userId); 
         }
     }, [isSuperAdmin, isAdmin]);
@@ -135,7 +136,7 @@ function UserDashboard() {
                     !isSuperAdmin && !isAdmin && (
                         <div className='w-full mx-auto h-full text-white flex flex-col justify-center items-center'>
                             <div className='w-full'>
-                                <NormalOrganizationDisplay organization={organization} />
+                                <UnpaidUser />
                             </div>
                         </div>
                     )
