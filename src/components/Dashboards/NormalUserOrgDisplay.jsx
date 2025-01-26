@@ -16,6 +16,7 @@ const NormalOrganizationDisplay = ({ organization }) => {
     const [viewUser, setViewUser] = useState(false);
     const url = "http://localhost:3000/ravi/v1/assign-user-to-plan";
     const getUserregeteredToPlan = "http://localhost:3000/ravi/v1/get-users-by-plan";
+    const deleteUrl = "http://localhost:3000/ravi/v1/remove-user-from-plan";
 
 
     const getUsersByPlan = async (planId) => {
@@ -34,16 +35,6 @@ const NormalOrganizationDisplay = ({ organization }) => {
             setLoadingUser(false);
         }
     }
-
-
-    const toggleopenPopUp = (id, ID) => {
-        setOpenOpUp(true);
-        setPlanId(id);
-        setOrgId(ID);
-    }
-    const closePopUp = () => {
-        setOpenOpUp(false);
-    };
 
     const addUserToPlane = async () => {
 
@@ -68,7 +59,6 @@ const NormalOrganizationDisplay = ({ organization }) => {
             closePopUp();
         }
     }
-    const deleteUrl = "http://localhost:3000/ravi/v1/remove-user-from-plan";
 
     const deleteUserFromPlan = async (email,orgID) => {
         const payload = {
@@ -87,6 +77,17 @@ const NormalOrganizationDisplay = ({ organization }) => {
         }
     }
 
+
+    const toggleopenPopUp = (id, ID) => {
+        setOpenOpUp(true);
+        setPlanId(id);
+        setOrgId(ID);
+    }
+
+
+    const closePopUp = () => {
+        setOpenOpUp(false);
+    };
 
     return (
         <div className="w-full h-full">
@@ -114,8 +115,6 @@ const NormalOrganizationDisplay = ({ organization }) => {
                                                 Role: {org.userId?.isSuperAdmin ? "Super Admin" : "Admin"}
                                             </p>
                                         </div>
-
-
 
                                         <div className=" w-[75%]">
                                             <div className="flex justify-evenly items-center p-2">
@@ -159,7 +158,6 @@ const NormalOrganizationDisplay = ({ organization }) => {
                                                 ))}
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             ))}
@@ -210,8 +208,6 @@ const NormalOrganizationDisplay = ({ organization }) => {
                                                                             </button>
                                                                         </div>
                                                                     </div>
-
-
                                                                 </>
                                                             ))
                                                         }
@@ -261,6 +257,3 @@ NormalOrganizationDisplay.propTypes = {
 };
 
 export default NormalOrganizationDisplay;
-
-
-

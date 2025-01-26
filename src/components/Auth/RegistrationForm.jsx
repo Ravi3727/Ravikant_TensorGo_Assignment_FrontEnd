@@ -58,7 +58,7 @@ function RegistrationForm() {
     return (
         <div className="max-w-md w-full space-y-8 shadow-xl bg-customBlue border-1 rounded-md p-2 backdrop-filter backdrop-blur-lg select-none">
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-                SignUp Todo Calendar
+                SignUp to TensorGo
             </h2>
             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                 <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-2 p-2">

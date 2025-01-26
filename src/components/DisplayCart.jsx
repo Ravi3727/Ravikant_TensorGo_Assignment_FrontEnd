@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Spin from "../Spin"
 import axios from 'axios';
 import { useCart } from '../Context';
+import History from './Dashboards/History';
 
 function DisplayCart() {
 
@@ -15,7 +16,7 @@ function DisplayCart() {
     const [loading, setLoading] = useState(false);
     const [Tab, setTab] = useState('plans');
     const cart = useCart();
-    console.log("Diaplay cart  ", cart);
+    // console.log("Diaplay cart  ", cart);
 
     const totalAmount = cart.items.reduce((total, item) => total + item.price, 0);
     const removeFromCart = (id) => {
@@ -81,7 +82,6 @@ function DisplayCart() {
 
     return (
         <>
-
             <div className='w-full min-h-screen bg-customBlue'>
                 <div className="w-[90%] mx-auto">
                     <div className="flex justify-evenly items-center w-full gap-4">
@@ -141,12 +141,12 @@ function DisplayCart() {
 
                                         <div className="flex w-full justify-evenly items-center gap-4">
                                             <button
-                                                onClick={() => openPopUp(plan._id, plan.name, plan.price)}
+                                                onClick={() => openPopUp(plan.id, plan.name, plan.price)}
                                                 className="bg-customBlue p-2 rounded-lg w-full text-white font-semibold hover:scale-105 transition duration-200"
                                             >
                                                 Buy Now
                                             </button>
-                                            <button
+                                            <button 
                                                 onClick={() => removeFromCart(plan.id)}
                                                 className="bg-customBlue p-2 rounded-lg w-full text-white font-semibold hover:scale-105 transition duration-200"
                                             >
@@ -188,7 +188,9 @@ function DisplayCart() {
                             )}
                         </div>
                     ) : (
-                        <div className="text-white text-center">History</div>
+                        <div className="text-white text-center">
+                            <History/>
+                        </div>
                     )}
                 </div>
 

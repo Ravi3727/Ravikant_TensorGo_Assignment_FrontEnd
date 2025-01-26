@@ -15,9 +15,7 @@ function PlainPlanCard({ plans }) {
 
 
     const cart = useCart();
-    console.log("cart is here ", cart);
-
-
+    // console.log("cart is here ", cart);
 
     const openPopUp = (id, name, price) => {
         setPopUp(true);
@@ -30,7 +28,6 @@ function PlainPlanCard({ plans }) {
     const closePopUp = () => {
         setPopUp(false);
     }
-
 
     const checkout = async () => {
         const userId = localStorage.getItem('ID');
@@ -166,7 +163,7 @@ PlainPlanCard.propTypes = {
             maxUsers: PropTypes.number.isRequired,
             features: PropTypes.arrayOf(PropTypes.string).isRequired,
         })
-    ).isRequired,
+    )
 }
 
 export default PlainPlanCard

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Spin from "../../Spin";
 import { AppContext } from "../../context/AppContext";
 
-// const url = "https://experimentlab-server-5.onrender.com/ravi/v1/users/login";
 const url = "http://localhost:3000/ravi/v1/users/login";
 
 function LoginForm() {
@@ -40,16 +39,12 @@ function LoginForm() {
 
             if (response.data.success === true) {
                 const userData = response.data.data.loggedInUser;
-                // console.log("login " + userData.username);
-                // console.log("user " + userData);
-                setUser(userData); // Set in context
+                setUser(userData);
                 localStorage.setItem("ID", userData._id);
                 localStorage.setItem("isSuperAdmin", userData.isSuperAdmin);
                 localStorage.setItem("isAdmin", userData.isAdmin);
                 localStorage.setItem("email",userData.email);
                 localStorage.setItem("username",userData.username);
-                // localStorage.setItem("accessToken", response.data.data.accessToken);
-                // localStorage.setItem("refreshToken", userData.refreshToken);
                 navigate(`/`);
                 setLoading(false);
             }else{
@@ -89,7 +84,7 @@ function LoginForm() {
             <div className="max-w-md w-full space-y-8 shadow-xl bg-customBlue border-1 rounded-md p-2 backdrop-filter backdrop-blur-lg select-none">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-                        Login to Todo Calendar
+                        Login to TensorGo 
                     </h2>
                 </div>
                 {errorMessage && (

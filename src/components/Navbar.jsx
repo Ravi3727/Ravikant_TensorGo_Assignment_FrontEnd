@@ -9,7 +9,7 @@ function Navbar() {
     const user = storedUser ? storedUser : null;
     const cart = useCart();
 
-    console.log("cart", cart);
+    // console.log("cart", cart);
     const logoutUser = async () => {
         try {
             localStorage.removeItem("ID");
