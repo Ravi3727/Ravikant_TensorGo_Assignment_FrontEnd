@@ -45,6 +45,7 @@ function LoginForm() {
                 localStorage.setItem("isAdmin", userData.isAdmin);
                 localStorage.setItem("email",userData.email);
                 localStorage.setItem("username",userData.username);
+                localStorage.setItem("accessToken", response.data.data.accessToken);
                 navigate(`/`);
                 setLoading(false);
             }else{

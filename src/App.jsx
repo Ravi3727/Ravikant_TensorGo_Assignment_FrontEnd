@@ -10,6 +10,7 @@ import CreatePlans from './components/CreatePlans';
 import UserDashboard from './components/Dashboards/UserDashboard';
 import DisplayCart from './components/displayCart';
 import History from './components/Dashboards/History';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 
@@ -22,12 +23,35 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={< AllPlans />} />
-            <Route path="/create-plan" element={< CreatePlans/>} />
+            <Route path="/create-plan" element={< CreatePlans />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/signup" element={<Register />} />
-            <Route path="/dashboard" element={<UserDashboard />} />
-            <Route path="/cart" element={<DisplayCart />} />
-            <Route path="/history" element={<History />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <UserDashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <DisplayCart />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/history"
+              element={
+                <ProtectedRoute>
+                  <History />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Router>
       </AppContext.Provider>

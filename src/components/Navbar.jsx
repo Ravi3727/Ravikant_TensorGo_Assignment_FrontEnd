@@ -13,14 +13,24 @@ function Navbar() {
     const logoutUser = async () => {
         try {
             localStorage.removeItem("ID");
-            localStorage.removeItem("accessToken");
             localStorage.removeItem("isSuperAdmin");
             localStorage.removeItem("isAdmin");
             localStorage.removeItem("email");
             localStorage.removeItem("username");
-            const Token1 = localStorage.getItem("accessToken");
+            const Token = localStorage.getItem("accessToken");
+            localStorage.removeItem("accessToken");
+            console.log("Token1", Token);
             const url = `http://localhost:3000/ravi/v1/users/logout`;
-            const response = await axios.post(url, Token1, { withCredentials: true });
+            const response = await axios.post(
+                url,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${Token}`,
+                    },
+                    withCredentials: true,
+                }
+            );
 
             if (response.status === 200) {
                 console.log("Logged out successfully!");
